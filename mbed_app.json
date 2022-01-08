@@ -11,8 +11,8 @@
     "target_overrides": {
         "*": {
             "nsapi.default-wifi-security": "WPA_WPA2",
-            "nsapi.default-wifi-ssid": "\"eslab305-DL6\"",
-            "nsapi.default-wifi-password": "\"305305abcd\"",
+            "nsapi.default-wifi-ssid": "\"NETGEAR08\"",
+            "nsapi.default-wifi-password": "\"ted221963\"",
             "platform.stdio-baud-rate": 9600,
             "mbed-trace.enable": false,
             "mbed-trace.max-level": "TRACE_LEVEL_DEBUG",

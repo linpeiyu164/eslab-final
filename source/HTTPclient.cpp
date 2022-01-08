@@ -82,15 +82,21 @@ public:
         if (result != 0) {
             printf("Error! _socket.connect() returned: %d\r\n", result);
             return;
+        }else{
+            printf("Socket connected\n");
         }
     }
 
     void send_message(const char * message){
         if(!send_post_request(message)){
             printf("failed to send http request\n");
+        }else{
+            printf("post request sent successfully\n");
         }
         if(!receive_http_response()){
             printf("failed to receive http response\n");
+        }else{
+            printf("http response received\n");
         }
         connect_port();
         return;
@@ -166,13 +172,10 @@ private:
                 printf("Error! _socket.send() returned: %d\r\n", bytes_sent);
                 return false;
             }else{
-                printf("sent %d bytes\r\n", bytes_sent);
+                printf("Sent %d bytes\r\n", bytes_sent);
             }
             bytes_to_send -= bytes_sent;
         }
-
-        printf("Complete message sent\r\n");
-
         return true;
     }
 
@@ -200,7 +203,7 @@ private:
         }
         printf("%s",buffer);
         printf("received %d bytes:\r\n%.*s\r\n\r\n", received_bytes, strstr(buffer, "\n") - buffer, buffer);
-
+        _socket.close();
         return true;
     }
 

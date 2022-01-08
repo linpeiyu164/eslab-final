@@ -19,7 +19,7 @@ void send_direction_message(string& car, string& cam, HTTPClient * client){
     const char * car_direction = car.c_str();
     const char * cam_direction = cam.c_str();
     char msg[50];
-    sprintf(msg, "{\"direction\": \"%s\",\"camera\": \"%s\"}",car_direction, cam_direction);
+    sprintf(msg, "{\"direction\": \"%s\",\"camera\": \"%s\"}", car_direction, cam_direction);
     client -> send_message((const char *)msg);
 }
 
@@ -256,7 +256,7 @@ int main()
     #endif
     HTTPClient *client = new HTTPClient();
     MBED_ASSERT(client);
-    char addr[] = "192.168.0.131";
+    char addr[] = "192.168.1.9";
     int port = 5000;
     client -> setAddress(addr, port);
     client -> connect_wifi();
