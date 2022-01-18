@@ -2,7 +2,7 @@
 電機三 林霈瑀 張芯慈 王濰紳
 
 ## Introduction
-![](https://i.imgur.com/1PqfZ0s.png)
+![](https://i.imgur.com/XMuaNMp.png)
 
 ## STM32
 ### Gesture Detection 
