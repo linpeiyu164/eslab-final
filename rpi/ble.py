@@ -2,6 +2,16 @@ from bluepy.btle import Peripheral, UUID
 from bluepy.btle import Scanner, DefaultDelegate
 import binascii
 import time
+from flask import Flask, request, Response
+from flask_cors import CORS
+import RPi.GPIO as GPIO
+from http.server import HTTPServer, SimpleHTTPRequestHandler, test
+import sys
+import threading
+import json
+import hlsserver
+import requests
+from statistics import mode
 
 BUTTON_SERVICE_UUID = 0xA000
 BUTTON_STATE_CHARACTERISTIC_UUID = 0xA001
@@ -14,6 +24,8 @@ class ScanDelegate(DefaultDelegate):
 #global num
 path = 'output.txt'
 num = 1
+cur = 0
+fst = True
 while (1):
     scanner = Scanner().withDelegate(ScanDelegate())
     devices = scanner.scan(2.0)
@@ -31,10 +43,23 @@ while (1):
             found += 1
     nearest = max(RSSI)
     num = RSSI.index(nearest)+1
-    print(num)
-    f = open(path, 'w')
-    f.write(str(num))
+    if not fst:
+        ls[cur] = num
+        cur = (cur+1)%7
+    else:
+        ls = [num for i in range(7)]
+        fst = False
+    num_m = mode(ls)
+    print(ls)
+    print(num_m)
+    info_dict = {"name": "Exhibit"+str(num_m)}
+    res = requests.post('http://192.168.0.131:5000/control', json=info_dict)
+    # f = open(path, 'w')
+    # f.write(str(num))
     if nearest > -999:
-        print("nearest device: Button %d, RSSI = %d" %(RSSI.index(nearest)+1, nearest))
+        print("nearest device: Button %d, RSSI = %d" %(num_m, nearest))
     else:
         print ("no nearby device")
+
+        
+    

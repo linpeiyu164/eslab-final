@@ -57,8 +57,12 @@ eventSource.addEventListener("online", e => {
         document.querySelector("#information_div").style.display = 'block'
         document.querySelector("#information_title").innerHTML = data.name
         document.querySelector("#information_body").innerHTML = data.info
+        if(data.img != "No nearby"){
+            document.querySelector("#image").src = "/static/"+data.img
+        }
+        
     }
     document.querySelector("#direction").innerHTML = data.direction
-    document.querySelector("#camera").innerHTML = data.camera
+    // document.querySelector("#camera").innerHTML = data.camera
 })
 

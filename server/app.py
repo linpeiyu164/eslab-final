@@ -22,6 +22,7 @@ class Data:
     direction = ''
     name = ''
     info = ''
+    img = ''
 
 data = Data()
 
@@ -39,44 +40,69 @@ def listen():
                 "camera" : data.camera, 
                 "direction" : data.direction, 
                 "name" : data.name, 
-                "info" : data.info
+                "info" : data.info,
+                "img":data.img
             })
             time.sleep(0.1)
             toggle = not toggle
             yield f"id: 1\ndata: {_data}\nevent: online\n\n"
     return Response(respond_to_client(), mimetype='text/event-stream')
 
+@app.route("/direction", methods=['POST'])
+def direction():
+    global data
+    req_byte = request.data
+    req_str = req_byte.decode("UTF-8")
+    direction_dict = ast.literal_eval(req_str)
+    data.direction = direction_dict["direction"]
+    return Response(status=200)
+
 @app.route("/control", methods=['GET','POST'])
 def control():
     # post data to mongo db
     global data
     info = {
-        "Exhibit1" : "This is info for exhibit1",
-        "Exhibit2" : "This is info for exhibit2",
-        "Exhibit3" : "This is info for exhibit3",
+        "Exhibit1" : "超級害羞的白熊，專長是畫畫，興趣是喝茶。因為北方實在太寒冷，剛好他又非常怕冷，所以毅然收拾包袱逃往南方。應對寒冷的方法就是用包袱巾包著自己。",
+        "Exhibit2" : "吃完炸豬排的時候，盤子裡總剩下外層肥肉、脆脆，炸豬排就是這些剩餘食物的組合體。炸豬排身體有超過99%為麵團，剩下1%為豬肉，對自己是「賣剩的」感到很沒自信，順帶一提，炸豬排點上醬汁，將會非常美味。",
+        "Exhibit3" : "與河童(?)不一樣，他是一隻真正的企鵝，經常環遊世界。直到一次到北方旅行時遇見了白熊，告訴白熊男方有溫暖的海洋，白熊因而離開北方，踏上了離鄉背井的旅途。",
+        "Exhibit4" : "No nearby"
+    }
+    name = {
+        "Exhibit1" : "白熊",
+        "Exhibit2" : "炸豬排",
+        "Exhibit3" : "企鵝",
+        "Exhibit4" : "No nearby"
+    }
+    images = {
+        "Exhibit1" : "1.png",
+        "Exhibit2" : "2.png",
+        "Exhibit3" : "3.png",
         "Exhibit4" : "No nearby"
     }
     req_byte = request.data
     req_str = req_byte.decode("UTF-8")
-    req_dict = ast.literal_eval(req_str)
-    print(req_dict)
+    exb_dict = ast.literal_eval(req_str)
+    print(exb_dict)
     #data.camera = req_dict["camera"]
-    data.direction = req_dict["direction"]
+    # data.direction = req_dict["direction"]
     #print(data.camera, data.direction)
     # control_data = json.dumps({
     #     "camera" : data.camera, 
     #     "direction" : data.direction
     # })
-    control_data = json.dumps({"direction" : data.direction})
-    control_res = requests.post('http://192.168.0.156:3000/controlrpi', json=control_data)
+    # control_data = json.dumps({"direction" : data.direction})
+    # control_res = requests.post('http://192.168.0.156:3000/controlrpi', json=control_data)
     #print(control_res.status_code)
-    if control_res.status_code==500:
-        print("Error")
-    exb_res = requests.get('http://192.168.0.156:3000/exb')
-    exb_dict = exb_res.json()
-    data.name = exb_dict["name"]
-    data.info = info[data.name]
-    return redirect('/listen')
+    # if control_res.status_code==500:
+        # print("Error")
+    # exb_res = requests.get('http://192.168.0.156:3000/exb')
+    # exb_dict = exb_res.json()
+    data.name = name[exb_dict["name"]]
+    data.info = info[exb_dict["name"]]
+    data.img = images[exb_dict["name"]]
+    # print(data.name)
+    # print(data.info)
+    return Response(status=200)
 
 """
 @app.route("/info", methods=['POST'])
