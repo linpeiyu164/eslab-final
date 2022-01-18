@@ -83,47 +83,11 @@ def control():
     req_str = req_byte.decode("UTF-8")
     exb_dict = ast.literal_eval(req_str)
     print(exb_dict)
-    #data.camera = req_dict["camera"]
-    # data.direction = req_dict["direction"]
-    #print(data.camera, data.direction)
-    # control_data = json.dumps({
-    #     "camera" : data.camera, 
-    #     "direction" : data.direction
-    # })
-    # control_data = json.dumps({"direction" : data.direction})
-    # control_res = requests.post('http://192.168.0.156:3000/controlrpi', json=control_data)
-    #print(control_res.status_code)
-    # if control_res.status_code==500:
-        # print("Error")
-    # exb_res = requests.get('http://192.168.0.156:3000/exb')
-    # exb_dict = exb_res.json()
+   
     data.name = name[exb_dict["name"]]
     data.info = info[exb_dict["name"]]
     data.img = images[exb_dict["name"]]
-    # print(data.name)
-    # print(data.info)
     return Response(status=200)
-
-"""
-@app.route("/info", methods=['POST'])
-def info():
-    global data
-    info = {
-        "Exhibit1" : "This is info for exhibit1",
-        "Exhibit2" : "This is info for exhibit2",
-        "Exhibit3" : "This is info for exhibit3",
-        "Exhibit4" : "This is info for exhibit4",
-        "Exhibit5" : "This is info for exhibit5",
-        "Exhibit6" : "This is info for exhibit6",
-    }
-    req_byte = request.data
-    req_str = req_byte.decode("UTF-8")
-    req_dict = ast.literal_eval(req_str)
-    print(req_dict)
-    data.name = req_dict["name"]
-    data.info = info.get(data.name)
-    return redirect('/listen')
-"""
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)

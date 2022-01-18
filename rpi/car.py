@@ -97,11 +97,3 @@ class PWMThrottle:
             
     def shutdown(self):
         self.run(0) #stop vehicle
-
-
-
-# pc0 = PCA9685(0)
-# pc1 = PCA9685(0,address = 0x60)
-# p0_t = PWMThrottle(controller=pc1)
-# p0_s = PWMSteering(controller=pc0)
-

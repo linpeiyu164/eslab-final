@@ -81,8 +81,7 @@ class CarController:
         #self.p0_s.shutdown()
         #self.p0_t.shutdown()
         #turn left and move forward
-        
-        
+
         #wait for 0.5 second(so the car motion can keep going for a while)
         #time.sleep(0.5)
     

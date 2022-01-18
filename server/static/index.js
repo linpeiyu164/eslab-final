@@ -63,6 +63,5 @@ eventSource.addEventListener("online", e => {
         
     }
     document.querySelector("#direction").innerHTML = data.direction
-    // document.querySelector("#camera").innerHTML = data.camera
 })
 

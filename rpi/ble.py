@@ -20,8 +20,7 @@ BUTTON_STATE_CHARACTERISTIC_UUID = 0xA001
 class ScanDelegate(DefaultDelegate):
     def __init__(self):
         DefaultDelegate.__init__(self)
-    
-#global num
+
 path = 'output.txt'
 num = 1
 cur = 0
@@ -30,7 +29,7 @@ while (1):
     scanner = Scanner().withDelegate(ScanDelegate())
     devices = scanner.scan(2.0)
     print("Scanning...")
-    MAC = ["c4:19:1e:f4:e0:81", "d8:94:7e:7b:0b:6a", "d7:97:21:71:53:27"]
+    MAC = ["c4:19:1e:f4:e0:81", "d8:94:7e:7b:0b:6a", "d7:97:21:71:53:27"] # MAC address of the three exhibits (STM32)
     RSSI = [-999, -999, -999]
     found = 0
     for dev in devices:
@@ -54,8 +53,6 @@ while (1):
     print(num_m)
     info_dict = {"name": "Exhibit"+str(num_m)}
     res = requests.post('http://192.168.0.131:5000/control', json=info_dict)
-    # f = open(path, 'w')
-    # f.write(str(num))
     if nearest > -999:
         print("nearest device: Button %d, RSSI = %d" %(num_m, nearest))
     else:
