@@ -151,13 +151,13 @@ private:
         nsapi_size_t msg_length = strlen(message);
         
         char buffer[300];
-        sprintf(buffer, "POST /control HTTP/1.1\r\n"
+        sprintf(buffer, "POST /controlrpi HTTP/1.1\r\n"
                         "Host: 192.168.1.26\r\n"
                         "Content-Type: application/json\r\n"
                         "Content-Length: %d\r\n"
                         "Connection: keep-alive\r\n"
                         "Access-Control-Allow-Origin: *\r\n"
-                        "Access-Control-Allow-Origin: 192.168.0.131\r\n"
+                        "Access-Control-Allow-Origin: 192.168.0.156\r\n"
                         "\r\n"
                         "%s\r\n"
                         ,msg_length, message);
@@ -165,7 +165,7 @@ private:
         nsapi_size_t bytes_to_send = strlen(buffer);
         nsapi_size_or_error_t bytes_sent = 0;
 
-        // printf("\r\nSending message: \r\n%s", buffer);
+        // printf("\r\nSending message: \r\n%s", buffer);`
         while (bytes_to_send) {
             bytes_sent = _socket.send(buffer + bytes_sent, bytes_to_send);
             if(bytes_sent < 0){

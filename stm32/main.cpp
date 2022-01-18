@@ -6,7 +6,6 @@
 using namespace std;
 
 InterruptIn button(BUTTON1);
-// Thread T1;
 Thread T2;
 Timer t;
 
@@ -61,7 +60,6 @@ void car_motion(string& car, string& cam, HTTPClient * client){
             state = 1;
             car = "right";
             if(state != prestate){
-                ThisThread::sleep_for(1000);
                 printf("car right\n");
             }
         }
@@ -69,7 +67,6 @@ void car_motion(string& car, string& cam, HTTPClient * client){
             state = 2;
             car = "left";
             if(state != prestate){
-                ThisThread::sleep_for(1000);
                 printf("car left\n");
             }
         }
@@ -77,7 +74,6 @@ void car_motion(string& car, string& cam, HTTPClient * client){
             state = 3;
             car = "forward";
             if(state != prestate){
-                ThisThread::sleep_for(1000);
                 printf("car forward\n");
             }
         }
@@ -86,7 +82,6 @@ void car_motion(string& car, string& cam, HTTPClient * client){
             car = "backward";
             if(state != prestate){
                 printf("car backward\n");
-                ThisThread::sleep_for(1000);
             }
         }
         else if(sumaz<0){
@@ -101,10 +96,8 @@ void car_motion(string& car, string& cam, HTTPClient * client){
             car = "stable";
             if(state != prestate){
                 printf("stable or unknown\n");
-                ThisThread::sleep_for(1000);
             }
         }         
-        ThisThread::sleep_for(10);
         if(count == 10){
             send_direction_message(car, cam, client);
             count = 0;
@@ -121,9 +114,6 @@ void motion_detection(HTTPClient * client, string& car_msg, string& camera_msg){
     }
 }
 
-
-
-
 int main()
 {
     #ifdef MBED_CONF_MBED_TRACE_ENABLE
@@ -131,9 +121,10 @@ int main()
     #endif
     HTTPClient *client = new HTTPClient();
     MBED_ASSERT(client);
-    char addr[] = "192.168.1.9";
-    int port = 5000;
-    client -> setAddress(addr, port);
+    char addr1[] = "192.168.0.156";
+    int port = 3000;
+
+    client -> setAddress(addr1, port);
     client -> connect_wifi();
     client -> connect_port();
 
