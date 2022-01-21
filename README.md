@@ -13,7 +13,7 @@ We seperately place three STM32 board as exhibits, which possess ble service, an
 
 ## RPI
 ### Car Control
-RPI gets the instruction from STM32 ex: forward, backward, left, right. The rear wheel then move backward if RPI gets the instruction "backward" and move forward otherwise where as the front wheel steers right if RPI geta the instruction "right" and steers left if RPI gets the instruction "left".
+RPI gets the instruction from STM32 ex: forward, backward, left, right. The rear wheel then move backward if RPI gets the instruction "backward" and move forward otherwise where as the front wheel steers right if RPI gets the instruction "right" and steers left if RPI gets the instruction "left".
 ### Exhibit Detection
 Our car would periodically detect the nearest exhibit (or there's no exhibit nearby) using RSSI value. Record the one with the largest RSSI value, consider seven consecutive results and take the mode of them as final result for stability.
 
