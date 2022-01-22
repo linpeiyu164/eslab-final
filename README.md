@@ -1,6 +1,8 @@
 # ESLab Final Project -- 看展覽車車
 電機三 林霈瑀 張芯慈 王濰紳
 
+Report: click [here](https://github.com/linpeiyu164/eslab-final/blob/master/ESLab%20Final%20Project%20Report.pdf)
+
 ## Introduction
 ![](https://i.imgur.com/XMuaNMp.png)
 
